@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "aptorss",
+  "version": "0.0.0",
+  "description": "produce RSS feeds from AP News hub pages",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "bin": "bin.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
