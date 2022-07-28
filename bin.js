@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const hub = process.argv[2]
 const cheerio = require('cheerio')
 
+const hub = process.argv[2]
 const query = `https://apnews.com/hub/${hub}`
 
 require('https').get(query, response => {
@@ -25,7 +25,7 @@ function outputRSS (html) {
   console.log('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
   console.log('<channel>')
   tag('title', `AP News Hub ${title}`)
-  tag('link', 'https://hn.kemitchell.com')
+  tag('link', query)
   $('.FeedCard').each(function () {
     const title = $('h2', this).text()
     const href = $('a[data-key=card-headline]', this).attr('href')
