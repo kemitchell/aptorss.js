@@ -21,28 +21,28 @@ function outputRSS (html) {
   const $ = cheerio.load(html)
   const title = $('h1[data-key=hub-title]').text()
   const date = $('span[data-key=timestamp]').attr('data-source')
-  console.log('<?xml version="1.0" encoding="UTF-8"?>')
-  console.log('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
-  console.log('<channel>')
+  write('<?xml version="1.0" encoding="UTF-8"?>')
+  write('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">')
+  write('<channel>')
   tag('title', `AP News Hub ${title}`)
   tag('link', query)
   $('.FeedCard').each(function () {
     const title = $('h2', this).text()
     const href = $('a[data-key=card-headline]', this).attr('href')
     const description = $('.content p', this).text()
-    console.log('<item>')
+    write('<item>')
     tag('title', title)
     tag('link', `https://apnews.com/${href}`)
     tag('description', description)
     tag('pubDate', date)
-    console.log('</item>')
+    write('</item>')
   })
-  console.log('</channel>')
-  console.log('</rss>')
+  write('</channel>')
+  write('</rss>')
 }
 
 function tag (name, string) {
-  console.log(`<${name}>${escapeXML(string)}</${name}>`)
+  write(`<${name}>${escapeXML(string)}</${name}>`)
 }
 
 function escapeXML (string) {
@@ -52,4 +52,8 @@ function escapeXML (string) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;')
+}
+
+function write (string) {
+  process.stdout.write(string)
 }
